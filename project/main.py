@@ -6,7 +6,7 @@ import uos
 from machine import Pin
 
 # File name of the script to import
-file_name = "server_control"
+file_name = "12C_module"
 
 SCRIPT_DIRECTORY = "/py_scripts"
 CONTEXT_RADIUS = 2
