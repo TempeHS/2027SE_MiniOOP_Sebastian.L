@@ -6,7 +6,7 @@ import uos
 from machine import Pin
 
 # File name of the script to import
-file_name = "12C_module.py"
+file_name = "v02.py"
 
 SCRIPT_DIRECTORY = "/py_scripts"
 CONTEXT_RADIUS = 2
