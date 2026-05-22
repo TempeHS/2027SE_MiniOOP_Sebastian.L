@@ -1,7 +1,7 @@
-from lib.Led_Light import Led_Light
-from time import sleep, time
+from lib.led_light import led_light
+from time import sleep
 
-red_light = Led_Light(3, True, True)
+red_light = led_light(3, True, True)
 
 while True:
     print(red_light.led_light_state)
@@ -29,3 +29,14 @@ while True:
             self.on
         elif self.value() == 1:
             self.off()
+
+
+red_light = Led_Light(3)
+
+while True:
+    print(red_light.led_light_state)
+    red_light.led_light_state = 1
+    sleep(0.25)
+    print(red_light.led_light_state)
+    red_light.led_light_state = 0
+    sleep(0.25)

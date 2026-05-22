@@ -1,4 +1,4 @@
-from lib.Led_Light import Led_Light
+from project.lib.led_light import Led_Light
 from time import sleep
 
 red_light = Led_Light(3, True, True)
