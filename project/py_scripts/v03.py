@@ -1,0 +1,32 @@
+from machine import Pin
+from time import sleep
+
+
+class Led_Light(Pin):
+    def __init__(self, pin, flashing=False, debug=False):
+        super().__init__(pin, PIN.OUT)
+        self.__debug = debug
+        self.__pin = pin
+        self.__flashing = flashing
+
+    def on(self):
+        self.high()
+        if self.__debug:
+            print(f"LED connected to Pin {self.__pin} is low")
+
+
+red_light = Led_Light(3, False, True)
+green_light = Led_Light(5, False, False)
+while True:
+    red_light.on()
+    green_light.on()
+    sleep(1)
+    red_light.off()
+    green_light.off()
+    sleep(1)
+
+    def toggle(self):
+        if self.value() == 0:
+            self.on()
+        elif self.value == 1:
+            self.off()
