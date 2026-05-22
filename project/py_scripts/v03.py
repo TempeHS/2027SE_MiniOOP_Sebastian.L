@@ -1,32 +1,31 @@
-from machine import Pin
-from time import sleep
+from lib.Led_Light import Led_Light
+from time import sleep, time
 
+red_light = Led_Light(3, True, True)
 
-class Led_Light(Pin):
-    def __init__(self, pin, flashing=False, debug=False):
-        super().__init__(pin, PIN.OUT)
-        self.__debug = debug
-        self.__pin = pin
-        self.__flashing = flashing
+while True:
+    print(red_light.led_light_state)
+    red_light.led_light_state = 1
+    sleep(0.25)
+    print(red_light.led_light_state)
+    red_light.led_light_state = 0
+    sleep(0.25)
 
     def on(self):
+        # method overriding polymorphism of the super class
         self.high()
         if self.__debug:
-            print(f"LED connected to Pin {self.__pin} is low")
+            print(f"LED connected to pin{self.__pin} is high")
 
-
-red_light = Led_Light(3, False, True)
-green_light = Led_Light(5, False, False)
-while True:
-    red_light.on()
-    green_light.on()
-    sleep(1)
-    red_light.off()
-    green_light.off()
-    sleep(1)
+    def off(self):
+        # method overriding polymorphism of the super class
+        self.low()
+        if self.__debug:
+            print(f"LED connected to pin{self.__pin} is low")
 
     def toggle(self):
+        # method overriding polypormhism of the super class
         if self.value() == 0:
-            self.on()
-        elif self.value == 1:
+            self.on
+        elif self.value() == 1:
             self.off()
