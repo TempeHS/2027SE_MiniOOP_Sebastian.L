@@ -2,78 +2,65 @@ from machine import Pin
 from time import ticks_ms, ticks_diff
 
 
-class Pedestrian_Button(Pin):
-    """Pedestrian button class that extends machine.Pin to provide a debounced button interface.
+class Pedestrian(Pin):
+    """Sub class inherits the super "pin" class implements pedestrian__button which gets input to display pedestrian status
 
-    This class implements a button with interrupt-based detection and software debouncing.
-    It maintains an internal state to track if a pedestrian is waiting after a button press.
+    Inherits from machine.Pin and provides methods to turn the LED on, off and flash it.
 
     Args:
-        pin (int): The GPIO pin number the button is connected to.
-        debug (bool): Whether to print debug statements.
+        pin (int): The GPIO pin number to which the LED is connected.
+        flashing (bool, optional): If True, enables flashing mode. Defaults to False.
+        debug (bool, optional): If True, enables debug output. Defaults to False.
+
+    Attributes:
+        led_light_state (int): Property to get or set the LED state (1 for off, 0 for on).
+        _last_toggle_time (float): Timestamp of the last toggle, used for flashing.
+
+    Methods:
+        flash():
+            Toggles the LED state every 0.5 seconds if flashing is enabled.
     """
 
-    def __init__(self, pin, debug):
-        """Initialise the Pedestrian_Button object.
-
-        Sets up the pin as an input with pull-down resistor and configures
-        an interrupt handler for rising edge detection.
+    def __init__(self, pin, flashing=False, debug=False):
+        """Initializes the Pedestrian button.
 
         Args:
-            pin (int): The GPIO pin number the button is connected to.
-            debug (bool): Whether to print debug statements.
+            pin (int): The GPIO pin number to which the LED is connected.
+            flashing (bool, optional): If True, enables flashing mode. Defaults to False.
+            debug (bool, optional): If True, enables debug output. Defaults to False.
         """
+
         super().__init__(pin, Pin.IN, Pin.PULL_DOWN)
         self.__debug = debug
         self.__pin = pin
-        self.__last_pressed = ticks_ms()  # Track the last time the button was pressed
+        self.__last_pressed = 0
+        self.__flashing = flashing
         self.__pedestrian_waiting = False
-        self.irq(
-            trigger=Pin.IRQ_RISING, handler=self.callback
-        )  # Set up interrupt on rising edge
+        # Set up interrupt on rising edge
+        self.irq(trigger=pin.IRQ_RISING, handler=self.callback)
 
-    def button_state(self, value=None):
-        """
-        Get or set the current state of the pedestrian waiting flag.
-
-        - If called with no arguments, returns the current state (getter).
-        - If called with a boolean argument, sets the state (setter).
-
-        Args:
-            value (bool, optional): If provided, sets the pedestrian waiting state.
-
-        Returns:
-            bool: Current state if called without arguments.
-        """
-        if value is None:
+    def button_state(self, values=None):
+        if values is None:
             # Getter
             if self.__debug:
                 print(
-                    f"Button connected to Pin {self.__pin} is {'WAITING' if self.__pedestrian_waiting else 'NOT WAITING'}"
+                    f"Button connected to pin {self.__pin} os {'WAITING' if self.__pedestrian_waiting else 'NOT WAITING'}"
                 )
             return self.__pedestrian_waiting
         else:
+            # Setter
             self.__pedestrian_waiting = bool(
                 value
-            )  # Convert to boolean to ensure proper type
+            )  # Convert to boolean to ensure the proper type
             if self.__debug:
                 print(
                     f"Button state on Pin {self.__pin} set to {self.__pedestrian_waiting}"
                 )
 
     def callback(self, pin):
-        """Interrupt handler called when the button is pressed (rising edge).
-
-        Implements software debouncing by ignoring presses that occur within
-        200ms of the previous press. Sets the pedestrian_waiting flag when a
-        valid button press is detected.
-
-        Args:
-            pin (Pin): The pin that triggered the interrupt.
-        """
-        current_time = ticks_ms()  # Get the current time in milliseconds
-        if ticks_diff(current_time, self.__last_pressed) > 200:  # 200ms debounce delay
-            self.__last_pressed = current_time
-            self.__pedestrian_waiting = True
+        current_time = tick_ms()  # Get the current time in milliseconds
+        if ticks_diff(current__time, self.__last_pressed) > 200:  # 200ms
+            self.__last_pressed
+            self.__pedestrian_waiting
             if self.__debug:
                 print(f"Button pressed on Pin {self.__pin} at {current_time}ms")
