@@ -1,7 +1,7 @@
-from lib.led_light import Led_Light
+from lib.led_light import led_light
 from time import sleep
 
-red_light = Led_Light(3, True, True)
+red_light = led_light(3, True, True)
 while True:
     red_light.flash()
     print(1)
