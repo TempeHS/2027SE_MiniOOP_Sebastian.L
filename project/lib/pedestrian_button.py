@@ -1,5 +1,5 @@
 from machine import Pin
-from time import ticks_ms, ticks_diff
+from time
 
 
 class Pedestrian(Pin):

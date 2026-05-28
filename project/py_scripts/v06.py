@@ -4,14 +4,14 @@ from time import sleep
 buzzer = Audio_Notification(27, debug=True)
 
 print("Testing beep()")
-buzzer.beep(freq=100, duration=200)
+buzzer.beep(freq=1000, duration=200)
 print("Did you hear a beep?(Check your buzzer)")
 
 print("Testing warning_on() (should beep every -0.5s for 2 seconds)")
 start = buzzer.__last_toggle_time
 for _ in range(5):
     buzzer.warning_on()
-    sleep(0.5)
+    sleep(1)
 
 print("Testing warning_off() (should silence the buzzer)")
 buzzer.warning_off()
