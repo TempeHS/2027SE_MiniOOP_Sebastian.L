@@ -24,3 +24,8 @@ class Audio_Notification(PWM):
         self.duty_u16(0)
         if self.__debug:
             print("Beep")
+
+    def warning_off(self):
+        if self.__debug:
+            print("Warning off")
+        self.duty_u16(0)  # turn sound off

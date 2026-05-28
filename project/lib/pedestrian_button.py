@@ -39,8 +39,8 @@ class Pedestrian(Pin):
         # Set up interrupt on rising edge
         self.irq(trigger=pin.IRQ_RISING, handler=self.callback)
 
-    def button_state(self, values=None):
-        if values is None:
+    def button_state(self, value=None):
+        if value is None:
             # Getter
             if self.__debug:
                 print(
