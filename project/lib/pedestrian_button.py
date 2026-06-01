@@ -1,8 +1,8 @@
 from machine import Pin
-from time
+from time import tick_ms, ticks_diff
 
 
-class Pedestrian(Pin):
+class Pedestrian_Button(Pin):
     """Sub class inherits the super "pin" class implements pedestrian__button which gets input to display pedestrian status
 
     Inherits from machine.Pin and provides methods to turn the LED on, off and flash it.
